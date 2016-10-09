@@ -1,14 +1,29 @@
 ﻿using UnityEngine;
+using UnityEditor.SceneManagement;
 using System.Collections.Generic;
 
 public class Level : MonoBehaviour {
 
-	public int numplayers = 4;
-	// Use this for initialization
-	void Start () {
-		Physics2D.IgnoreLayerCollision(13, 13);
-		int players = numplayers;
-		GameObject[] spawners = GameObject.FindGameObjectsWithTag("PlayerSpawner");
+    public int numplayers;
+
+    // Used by buttons to set the number of players in the game
+    public void setNumPlayers(int num)
+    {
+        numplayers = num;
+    }
+
+    //Used by buttons to choose the arena or menu to load
+    public void setScene(int scene)
+    {
+        EditorSceneManager.LoadScene(scene);
+    }
+
+    // Use this for initialization
+    void Start () {
+		Physics2D.IgnoreLayerCollision(8, 8);
+
+        int players = numplayers;
+		GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
 		List<int> spawnersUsed = new List<int>();
 		int i;
@@ -30,4 +45,6 @@ public class Level : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    
 }
