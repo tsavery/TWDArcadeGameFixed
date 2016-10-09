@@ -18,9 +18,20 @@ public class Bullet : MonoBehaviour {
 			Destroy(gameObject);
 
 		if(collision.gameObject.layer == 8 ) {
-			collision.gameObject.SendMessage("OnHit");
+			Debug.Log("Hit");
+			collision.gameObject.SendMessage("OnHit", gameObject);
 			Destroy(gameObject);
 		}
+	}
+	void OnTriggerEnter2D(Collider2D other) {
+		if(other.tag == "Player") {
+			if((other.GetComponent<Player>().shieldOn == true)) {
+				other.GetComponent<Player>().powerUpUsesLeft -= 1;
+				Destroy(gameObject);
+			}
+		}
+
+			
 	}
 
 	void OnBecameInvisible() {
